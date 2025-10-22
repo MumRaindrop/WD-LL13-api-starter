@@ -1,30 +1,40 @@
-/*
-🧠 Copilot Helper Notes – Please Follow These Guidelines:
+const output = document.getElementById("output");
 
-This is a beginner-friendly project. Suggestions should:
-- Use plain JavaScript (no frameworks, Canvas, or game libraries).
-- Use `fetch()` with `.then()` syntax (not async/await unless requested).
-- Prefer `const` and `let`, and keep variable/function names clear and descriptive.
-- Use `||` and `&&` in conditionals only when needed – clarity first.
-- Break logic into small, readable functions when appropriate.
-- Avoid advanced ES6+ features (e.g., destructuring, optional chaining) unless scaffolded.
-- Avoid arrow functions unless needed for clarity or brevity.
-- Add helpful inline comments, especially around tricky logic or new patterns.
+// Create elements for fact and fox image
+const factDiv = document.createElement("div");
+const foxDiv = document.createElement("div");
+const foxImg = document.createElement("img");
 
-This helps students learn to read, debug, and extend code confidently.
-*/
+// Add some basic styling
+factDiv.style.fontSize = "1.2em";
+factDiv.style.margin = "20px 0";
+foxImg.style.maxWidth = "400px";
+foxImg.style.borderRadius = "10px";
+foxImg.style.boxShadow = "0 4px 10px rgba(0,0,0,0.2)";
 
-/*
-Students — No need to worry about this block! 
-It’s just here to help Copilot support you better. 
-Start your code below 👇
-*/
+// Fetch random fact
+fetch("https://uselessfacts.jsph.pl/random.json?language=en")
+  .then(response => response.json())
+  .then(data => {
+    factDiv.textContent = `🧠 Random Fact: ${data.text}`;
+  })
+  .catch(error => {
+    factDiv.textContent = "Failed to load a random fact.";
+    console.error(error);
+  });
 
+// Fetch random fox image
+fetch("https://randomfox.ca/floof/")
+  .then(response => response.json())
+  .then(data => {
+    foxImg.src = data.image;
+    foxDiv.appendChild(foxImg);
+  })
+  .catch(error => {
+    foxDiv.textContent = "Failed to load a fox image.";
+    console.error(error);
+  });
 
-
-
-// Use this script to write your fetch logic
-// You'll fetch data from your selected API and display it on the page
-
-// Example placeholder:
-console.log("Team activity starter code loaded.");
+// Add everything to the output div
+output.appendChild(factDiv);
+output.appendChild(foxDiv);
